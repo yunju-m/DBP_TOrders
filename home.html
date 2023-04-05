@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>TOrders</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+</head>
+<body>
+    <div id="wrap" class="wrap">
+        <!-- 웹 제목-->
+        <header class="header" role="banner">
+            <div class="header_inner">
+                <a href="home.html" class="logo">
+                    <h1 id="title">혼밥은 시로시로</h1>
+                </a>
+            </div>
+        </header>
+        <!--전체 내용(content, footer)-->
+        <div id="container" class="container">
+            <!-- content -->
+            <div class="content">
+                <div class="login_wrap">
+                    <!-- 로그인 창-->
+                    <form id="frmNIDLogin" name="frmNIDLogin" target="_top" autocomplete="off"
+                        action="main.html" method="POST">
+                        <!-- 전달할 데이터 값들 추가 id나 비밀번호-->
+                        <ul class="panel_wrap">
+                            <li class="panel_item" style="display: block;">
+                                <div class="panel_inner" role="tabpanel" aria-controls="loinid">
+                                    <div class="id_pw_wrap">
+                                        <!-- 아이디, 취소버튼-->
+                                        <div class="input_row" id="id_line">
+                                            <div class="icon_cell" id="id_cell">
+                                                <span class="icon_id">
+                                                    <span class="blind">아이디</span>
+                                                </span>
+                                            </div>
+                                            <input type="text" id="id" name="id" placeholder="ID를 입력하세요" title="아이디"
+                                                class="input_text" maxlength="10" value="">
+                                            <span role="button" class="btn_delete" id="id_clear">
+                                                <span class="icon_delete">
+                                                    <span class="blind">삭제</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                        <!-- 비밀번호, 취소버튼-->
+                                        <div class="input_row" id="pw_line">
+                                            <div class="icon_cell" id="pw_cell">
+                                                <span class="icon_pw">
+                                                    <span class="blind">비밀번호</span>
+                                                </span>
+                                            </div>
+                                            <input type="password" id="pw" name="pw" placeholder="비밀번호를 입력하세요" title="비밀번호"
+                                                class="input_text" maxlength="15">
+                                            <span role="button" class="btn_delete" id="pw_clear">
+                                                <span class="icon_delete">
+                                                    <span class="blind">삭제</span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="btn_login_wrap">
+                                        <button type="submit" class="btn_login" id="log.login">
+                                            <span class="btn_text">로그인</span>
+                                        </button>
+                                        <a href="logForm.html">회원가입</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- footer -->
+        <div class="footer">
+            <div class="footer_inner">
+            </div>
+        </div>
+</body>
+</html>
