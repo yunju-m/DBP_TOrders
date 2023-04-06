@@ -1,5 +1,8 @@
 const joinBtn = document.querySelector("#btnJoin");
-const loginForm = document.getElementById("loginpage");
+
+const idForm = document.getElementById("form_id");
+const pwdForm = document.getElementById("form_pwd");
+const nickForm = document.getElementById("form_nick");
 
 const id = document.querySelector("#id");
 const pwd1 = document.querySelector("#pswd1");
@@ -11,8 +14,10 @@ const day = document.querySelector("#day");
 const gender = document.querySelector("#gender");
 
 const DB_KEY = "login";
-let newid, newpwd, newnick;
+let newid, newpwd, newnick, chkid, chknick;
 let loginDB = [];
+let chkidDB = [];
+let chknickDB = [];
 
 function saveDB(){
     localStorage.setItem(DB_KEY, JSON.stringify(loginDB));
@@ -29,22 +34,33 @@ function onJoinBtnClick(event){
     saveDB();
 
     alert(`${newnick}님 환영합니다.`);
-    console.log(`${year.value}년 ${month.value}월 ${day.value}일`);
-    console.log(`${newnick}님은 ${gender.value} 입니다.`);
+}
+
+function checkId(event){
+    console.log("check id!!!");
+    chkidDB.push(event.id);
+}
+
+function checkNick(event){
+    console.log("check nickname!!");
+    chknickDB.push(event.nick);
 }
 
 function handleSubmitId(event) {
     event.preventDefault();
     newid = id.value;
-    if (loginDB.includes(newid)) { 
+    loginDB.forEach(checkId);
+    if (loginDB.length == 0 || chkidDB.includes(newid) == false) { 
+        alert("사용가능한 아이디입니다.");
+    } else{
         alert("이미 존재하는 아이디입니다.");
         id.value = "";
-    } else{
-        alert("사용가능한 아이디입니다.");
+        chkidDB = [];
     }
 }
 
-function handleSubmitPwd(){
+function handleSubmitPwd(event){
+    event.preventDefault();
     newpwd = pwd2.value;
     if (newpwd != pwd1.value){
         alert("비밀번호가 일치하지 않습니다.");
@@ -53,20 +69,25 @@ function handleSubmitPwd(){
     }
 }
 
-function handleSubmitNick(){
+function handleSubmitNick(event){
+    event.preventDefault();
     newnick = nickname.value;
-    if (loginDB.includes(newnick)) {
+    loginDB.forEach(checkNick);
+    if (chknickDB.includes(newnick)) {
         alert("존재하는 닉네임입니다.");
+        nickname.value="";
+        chknickDB=[];
     } else {
         alert("사용가능한 닉네임 입니다.");
     };
 }
 
-loginForm.addEventListener("submit", handleSubmitId);
-loginForm.addEventListener("submit", handleSubmitPwd);
-loginForm.addEventListener("submit", handleSubmitNick);
+idForm.addEventListener("submit", handleSubmitId);
+pwdForm.addEventListener("submit", handleSubmitPwd);
+nickForm.addEventListener("submit", handleSubmitNick);
 joinBtn.addEventListener("click", onJoinBtnClick);
 
+// 새로고침 후에도 사용자DB 저장
 const savedDBs = localStorage.getItem(DB_KEY);
 if(savedDBs != null) {
     const parsedDBs = JSON.parse(savedDBs);
