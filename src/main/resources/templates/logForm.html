@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>TOrders_회원가입</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css">
+</head>
+<body>
+    <main class="container">
+    <div id="wrap">
+        <!-- 스킵네비게이션 : 웹접근성대응-->
+    <div id="u_skip">
+        <a href="/">뒤로가기</a>
+    </div>
+    <!-- //스킵네비게이션 -->
+    <!-- header -->
+    <div id="header" class="join_membership" role="banner">
+        <h1>
+            <a href="/" class="h_logo">
+                <span class="blind">혼밥은 시로시로</span>
+            </a>
+        </h1>
+    </div>
+    <!-- // header --> 
+    <!-- container -->
+    <div id="container" role="main">
+        <div id="content">
+            <!-- tg-text=title -->
+            <div id="loginpage" method="get">
+            <h2 class="blind">회원가입</h2>
+            <div class="join_content">
+                <!-- 아이디, 비밀번호 입력 -->
+                <div class="row_group">
+                    <div class="join_row">
+                        <h3 class="join_title"><label for="id">아이디</label></h3>
+                        <form action="/login/new" method="post">
+                            <input type="text" id="id" name="id" class = "int" title="ID" maxlength="10" required>
+                            <input type="submit" value="아이디 확인">
+                        </form>    
+                    </div>
+                    <div class="join_row">
+                        <h3 class="join_title"><label for="pswd1">비밀번호</label></h3>
+                        <form action="/login/new" method="post">
+                            <input type="password" id="pswd1" name="pswd1" class="int" title="비밀번호 입력" maxlength="15" required>
+                            <h3 class="join_title"><label for="pswd2">비밀번호 재확인</label></h3>        
+                            <input type="password" id="pswd2" name="pswd2" class="int" title="비밀번호 재확인 입력" maxlength="15" required>
+                            <input type="submit" value="비밀번호 확인">
+                        </form>
+                    </div>
+                </div>
+                <!-- 이름, 생년월일 입력 -->
+                <div class="row_group">
+                    <!-- lang = ko_KR -->
+                    <div class="join_row">
+                        <h3 class="join_title"><label for="nickname">닉네임</label></h3>
+                        <form id="form_nick">
+                            <input type="text" id="nickname" name="name" title="닉네임" class="int" maxlength="10" required>
+                            <input type="submit" value="닉네임 확인">
+                        </form>
+                    </div>
+                    <div class="join_row join_birthday">
+                        <h3 class="join_title"><label for="yy">생년월일</label></h3>
+                        <div class="bir_wrap">
+                            <div class="bir_yy">
+                                <span id="form_year">
+                                    <input type="text" id="year" placeholder="년(4자)" aria-label="년(4자)" class="int" maxlength="4">
+                                </span>
+                            </div>
+                            <div class="bir_mm">
+                                <span class="ps_box">
+                                    <select id="month" class="sel" aria-label="월">
+                                        <option value="">월</option>
+                                            <option value="01">
+                                                1
+                                            </option>
+                                            <option value="02">
+                                                2
+                                            </option>
+                                            <option value="03">
+                                                3
+                                            </option>
+                                            <option value="04">
+                                                4
+                                            </option>
+                                            <option value="05">
+                                                5
+                                            </option>
+                                            <option value="06">
+                                                6
+                                            </option>
+                                            <option value="07">
+                                                7
+                                            </option>
+                                            <option value="08">
+                                                8
+                                            </option>
+                                            <option value="09">
+                                                9
+                                            </option>
+                                            <option value="10">
+                                                10
+                                            </option>
+                                            <option value="11">
+                                                11
+                                            </option>
+                                            <option value="12">
+                                                12
+                                            </option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class=" bir_dd">
+                                <span id="form_day">
+                                    <input type="text" id="day" placeholder="일" aria-label="일" class="int" maxlength="2">
+                                    <label for="dd" class="lbl"></label>
+                                </span>
+                            </div>
+                        </div>
+                        <span class="error_next_box" id="birthdayMsg" style="display:none" aria-live="assertive"></span>
+                    </div>
+                    <!--성별 선택-->
+                    <div class="join_row join_sex">
+                        <h3 class="join_title"><label for="gender">성별</label></h3>
+                        <div class="ps_box gender_code">
+                            <select id="gender" name="gender" class="sel" aria-label="성별">
+                                <option value="" selected="">성별</option>
+                                    <option value="M">남자</option>
+                                    <option value="F">여자</option>
+                                    <option value="U">선택 안함</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <div class="btn_area">
+            <button type="click" id="btnJoin" class="btn_type btn_primary" onclick="location.href='main.html'">
+                <span>가입하기</span>
+            </button>
+        </div>
+    </div>
+    </main>
+    <script src="js/login.js"></script>
+</body>
+</html>
