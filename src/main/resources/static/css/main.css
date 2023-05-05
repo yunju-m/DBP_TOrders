@@ -1,0 +1,8 @@
+/*구글 웹 폰트 사이트*/
+@import url(//fonts.googleapis.com/earlyaccess/hanna.css);
+.title {
+    font-weight: bolder;
+    font-size: 50px;
+    color:black;
+    font-family: 'Jeju Gothic', sans-serif;
+}
