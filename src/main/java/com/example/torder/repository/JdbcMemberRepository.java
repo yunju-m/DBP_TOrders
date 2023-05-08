@@ -28,7 +28,6 @@ public class JdbcMemberRepository implements MemberRepository {
 
     @Override
     public Optional<Member> findByNickname(String nickname) {
-        System.out.println("nickname : " + nickname);
         return store.values().stream()
                 .filter(member -> member.getNickname().equals(nickname) && nickname != "")
                 .findAny();
@@ -38,6 +37,7 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public Member save(Member member) {
         store.put(member.getId(), member);
+
         String sql = "insert into users(user_id, password, nickname, user_status) values (?, ?, ?, ?)";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -56,12 +56,12 @@ public class JdbcMemberRepository implements MemberRepository {
             } else {
                 throw new SQLException("id 조회 실패");
             }
-            return member;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
             close(conn, pstmt, rs);
         }
+        return member;
     }
 
     private Connection getConnection() {

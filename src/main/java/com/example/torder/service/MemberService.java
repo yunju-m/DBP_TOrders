@@ -1,7 +1,6 @@
 package com.example.torder.service;
 
 import java.util.Optional;
-
 import com.example.torder.domain.Member;
 import com.example.torder.repository.MemberRepository;
 
@@ -14,12 +13,11 @@ public class MemberService {
 
     /* 회원가입 중복확인 */
     public void join(Member member) {
-        System.out.println();
+        validateDuplicateMember(member);
         System.out.println("** MemberService join 동작 **");
         System.out.println("member.id=" + member.getId());
         System.out.println("member.passward= " + member.getPassword());
         System.out.println("member.nickname= " + member.getNickname());
-        validateDuplicateMember(member);
     }
 
     /* 회원가입 db저장 */
@@ -33,11 +31,11 @@ public class MemberService {
     private void validateDuplicateMember(Member member) {
         Optional<Member> result = memberRepository.findById(member.getId());
         result.ifPresent(m -> {
-            System.out.println("이미 존재하는 ID 입니다.");
+            m.setId("");
         });
         result = memberRepository.findByNickname(member.getNickname());
         result.ifPresent(m -> {
-            System.out.println("이미 존재하는 닉네임입니다.");
+            m.setNickname("");
         });
     }
 }
