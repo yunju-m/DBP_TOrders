@@ -14,17 +14,15 @@
     <main class="form-signin w-100 m-auto">
         <h1 class="title">혼밥은 시로시로</h1>
         <img src="img\homePicture.jpg" class="rounded-5 w-50" alt="homePicture">
-        <form>
-            <div class="form-floating w-75 m-5">      
-                <input type="id" class="form-control" id="Input_id" placeholder="Id">
-                <label for="Input_id">ID</label>
-                </div>
+        <form action="/login" method="post">
+            <div class="form-floating w-75 m-5">
+                <input type="id" class="form-control" id="Input_id" name="Input_id" placeholder="Id" required>
+                <label for="Input_id">ID</label>   
             </div>
             <div class="form-floating w-75 m-5">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <input type="password" class="form-control" id="Input_password" name="Input_password" placeholder="Password" required>
                 <label for="floatingPassword">Password</label>
             </div>
-        </div>
             <button class="w-25 btn btn-lg btn-primary" type="submit">로그인</button>
             <button class="w-50 btn btn-lg btn-primary" type="button" onclick="location.href='./login/new'">회원가입</button>
             <p class="mt-5 mb-3 text-muted">곰두리 세마리 2023-05-04</p>

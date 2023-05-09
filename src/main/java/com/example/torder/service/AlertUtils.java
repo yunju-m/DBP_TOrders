@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 public class AlertUtils {
     // 컨트롤 --> 경고창 띄우기 위해 사용
     public static void init(HttpServletResponse response) {
-        response.setContentType("text/html; charset=euc-kr");
-        response.setCharacterEncoding("euc-kr");
+        response.setContentType("text/html; charset=utf-8");
+        response.setCharacterEncoding("utf-8");
     }
 
     public static void alert(HttpServletResponse response, String alertText) throws IOException {

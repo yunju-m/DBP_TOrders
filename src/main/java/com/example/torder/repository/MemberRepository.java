@@ -1,13 +1,15 @@
 package com.example.torder.repository;
 
-import java.util.Optional;
-
 import com.example.torder.domain.Member;
 
 public interface MemberRepository {
+    void existMembersave();
+
+    boolean loginCheck(Member member);
+
     Member save(Member member);
 
-    Optional<Member> findById(String id);
+    boolean findById(String id);
 
-    Optional<Member> findByNickname(String nickname);
+    boolean findByNickname(String nickname);
 }
