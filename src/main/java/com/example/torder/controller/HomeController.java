@@ -1,14 +1,20 @@
 package com.example.torder.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.torder.domain.Member;
@@ -44,16 +50,9 @@ public class HomeController {
         if (login_check) {
             return "main";
         } else {
-            AlertUtils.alertAndMovePage(response, "아이디, 비밀번호가 일치하지 않습니다.", "/");
+            // AlertUtils.alertAndMovePage(response, "아이디, 비밀번호가 일치하지 않습니다.", "/");
             return "redirect:/";
         }
-    }
-
-    /* 이전 페이지 이동 <보류 코드> */
-    @RequestMapping(value = "/rate", method = RequestMethod.POST)
-    public String rateHandler(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        String referer = request.getHeader("Referer");
-        return "redirect:" + referer;
     }
 
     /* ID 생성 및 중복확인 */
@@ -61,37 +60,38 @@ public class HomeController {
     public String createID(NewLoginForm form) {
         member.setId(form.getId());
         memberService.join(member);
+        System.out.println("나는 아이디 생성");
         return "redirect:/login/id/new";
     }
 
     /* ID 생성가능여부 판단 */
     @GetMapping("login/id/new")
-    public void createIDHandler(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (member.getId().equals("")) {
-            AlertUtils.alertAndBackPage(response, "이미 존재하는 아이디입니다.");
-        } else {
-            AlertUtils.alertAndBackPage(response, "사용 가능한 아이디입니다.");
-        }
+    @ResponseBody
+    public void createIDHandler(Model model, HttpServletResponse response) throws Exception {
+        model.addAttribute("iddata", member.getId());
+        AlertUtils.alertAndBackPage(response);
     }
 
     /* PW 생성 및 일치 판단여부 */
     @PostMapping("/login/pw/new")
-    public void createPW(NewLoginForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.println();
-        System.out.println("새로운 pw을 입력!!!");
-        if (form.getPswd1().equals(form.getPswd2())) {
+    public String createPW(NewLoginForm form) {
+        if (form.getPswd1() == form.getPswd2()) {
             member.setPassword(form.getPswd2());
-            AlertUtils.alertAndBackPage(response, "비밀번호가 일치합니다.");
-        } else {
-            AlertUtils.alertAndBackPage(response, "비밀번호가 일치하지 않습니다.");
         }
+        return "redirect:/login/pw/new";
+    }
+
+    @GetMapping("login/pw/new")
+    @ResponseBody
+    public String createPwHandler() {
+        JSONObject jo = new JSONObject();
+        jo.put("password", member.getPassword());
+        return jo.toJSONString();
     }
 
     /* 닉네임 생성 및 중복확인 */
     @PostMapping("/login/nick/new")
     public String createNick(NewLoginForm form) {
-        System.out.println();
-        System.out.println("새로운 닉네임을 입력!!!");
         member.setNickname(form.getNickname());
         memberService.join(member);
         return "redirect:/login/nick/new";
@@ -99,14 +99,11 @@ public class HomeController {
 
     /* 닉네임 생성가능여부 판단 */
     @GetMapping("login/nick/new")
-    public void createNick(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (member.getNickname().equals("")) {
-            model.addAttribute("nickdata", "이미 존재하는 닉네임입니다.");
-            AlertUtils.alertAndBackPage(response, "이미 존재하는 닉네임입니다.");
-        } else {
-            model.addAttribute("nickdata", "사용 가능한 닉네임입니다.");
-            AlertUtils.alertAndBackPage(response, "사용 가능한 닉네임입니다.");
-        }
+    @ResponseBody
+    public String createNickHandler() {
+        JSONObject jo = new JSONObject();
+        jo.put("nickname", member.getNickname());
+        return jo.toJSONString();
     }
 
     /* 회원 생성 */
@@ -114,11 +111,12 @@ public class HomeController {
     public String createMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (member.getId() != "" && member.getPassword() != "" && member.getNickname() != "") {
             memberService.save(member);
-            AlertUtils.alertAndMovePage(response, member.getNickname() + "님 환영합니다.", "/");
+            // AlertUtils.alertAndMovePage(response, member.getNickname() + "님 환영합니다.",
+            // "/");
             member.drop();
             return "redirect:/";
         } else {
-            AlertUtils.alertAndBackPage(response, "회원정보를 모두 입력해주세요.");
+            // AlertUtils.alertAndBackPage(response, "회원정보를 모두 입력해주세요.");
             return null; // AlterUtils에서 이전 페이지로 반환하므로 null을 넣어도 상관x
         }
     }

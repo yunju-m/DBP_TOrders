@@ -20,9 +20,10 @@
           <div class="login-container">
             <div class="id-container">
               <label for="id" class="row-cols-md-3 col-form-label">ID</label>
-              <form action="/login/id/new" method="post" class="detil-container">
+              <form action="/login/id/new" method="post">
                 <div class="detail-container">
                   <input type="text" id="id" name="id" title="ID" maxlength="10" required />
+                  <h1 th:text="${iddata}"></h1>
                   <button type="submit" id="idBtn" class="btn btn-outline-dark">아이디 확인</button>
                 </div>
               </form>
@@ -42,7 +43,7 @@
                     </div>
                     <div class="detail-container">
                       <input type="password" id="pswd2" name="pswd2" title="PassWord" maxlength="20" required />
-                      <button type="submit" class="btn btn-outline-dark">비밀번호 확인</button>
+                      <button type="submit" id="pwBtn" class="btn btn-outline-dark">비밀번호 확인</button>
                     </div>
                   </div> 
                 </form> 
@@ -51,11 +52,11 @@
                 <label for="nickname" class="row-cols-md-3 col-form-label">NickName</label>
                 <form action="/login/nick/new" method="post" class="detail-container">
                   <input type="text" id="nickname" name="nickname" title="NickName" maxlength="10" required />
-                  <button type="submit" class="btn btn-outline-dark">닉네임 확인</button>
+                  <button type="submit" id="nickBtn" class="btn btn-outline-dark">닉네임 확인</button>
                 </form>
               </div>
               <form action="/login/check/new" method="post" class="btn-container">
-                <button type="button" class="btn btn-dark" onclick="location.href='/'">뒤로가기</button>
+                <button type="button" id="backBtn" class="btn btn-dark">뒤로가기</button>
                 <button type="submit" id="joinResultBtn" class="btn btn-dark w-50">가입하기</button>
               </form>
             </div>
