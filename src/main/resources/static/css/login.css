@@ -1,0 +1,33 @@
+.content-container{
+    padding:5%;
+    padding-top:2%;
+    padding-bottom: 2%;
+}
+.title-container{
+    display: flex;
+    padding-bottom: 8%;
+}
+.id-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.pw-container{
+    display: flex;
+    flex-direction: column;
+}
+.nick-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.btn-container{
+    display: flex;
+    width:100%;
+    padding-top:15%;
+    align-items: center;
+    justify-content: center;
+}
+#joinResultBtn{
+    margin-left:2%;
+}
