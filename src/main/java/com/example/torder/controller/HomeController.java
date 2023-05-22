@@ -2,24 +2,23 @@ package com.example.torder.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.example.torder.domain.Member;
 import com.example.torder.service.AlertUtils;
 import com.example.torder.service.MemberService;
+
+import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Controller
 public class HomeController {
@@ -44,6 +43,7 @@ public class HomeController {
     /* 로그인 ID 확인 */
     @PostMapping("/login")
     public String checkId(LoginForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        System.out.println(form.getInput_id() + " " + form.getInput_password());
         member.setId(form.getInput_id());
         member.setPassword(form.getInput_password());
         boolean login_check = memberService.Login(member);
@@ -57,37 +57,49 @@ public class HomeController {
 
     /* ID 생성 및 중복확인 */
     @PostMapping("/login/id/new")
-    public String createID(NewLoginForm form) {
-        member.setId(form.getId());
+    public String createID(@RequestBody Map<String, String> data) {
+        member.setId(data.get("id"));
         memberService.join(member);
-        System.out.println("나는 아이디 생성");
         return "redirect:/login/id/new";
     }
 
     /* ID 생성가능여부 판단 */
     @GetMapping("login/id/new")
     @ResponseBody
-    public void createIDHandler(Model model, HttpServletResponse response) throws Exception {
-        model.addAttribute("iddata", member.getId());
-        System.out.println(member.getId());
-        System.out.println("아이디 화면에 출력");
-        AlertUtils.alertAndBackPage(response);
+    public String createIDHandler() {
+        if (member.getId().equals("")) {
+            return "false";
+        } else {
+            return "true";
+        }
     }
 
-    /* PW 생성 및 일치 판단여부 */
+    /* PW 생성 여부 */
     @PostMapping("/login/pw/new")
-    public void createPW(NewLoginForm form, Model model, HttpServletResponse response) throws Exception {
-        if (form.getPswd1().equals(form.getPswd2())) {
-            member.setPassword(form.getPswd2());
-            System.out.println("비밀번호 저장!!");
+    public String createPW(@RequestBody Map<String, String> data) {
+        if (data.get("pwd1").equals(data.get("pwd2"))) {
+            member.setPassword(data.get("pwd2"));
+        } else {
+            member.setPassword("");
         }
-        AlertUtils.alertAndBackPage(response);
+        return "redirect:/login/pw/new";
+    }
+
+    /* PW 일치 여부 반환 */
+    @GetMapping("/login/pw/new")
+    @ResponseBody
+    public String createPWHandler() {
+        if (member.getPassword().equals("")) {
+            return "false";
+        } else {
+            return "true";
+        }
     }
 
     /* 닉네임 생성 및 중복확인 */
     @PostMapping("/login/nick/new")
-    public String createNick(NewLoginForm form) {
-        member.setNickname(form.getNickname());
+    public String createNick(@RequestBody Map<String, String> data) {
+        member.setNickname(data.get("nickname"));
         memberService.join(member);
         return "redirect:/login/nick/new";
     }
@@ -95,20 +107,25 @@ public class HomeController {
     /* 닉네임 생성가능여부 판단 */
     @GetMapping("login/nick/new")
     @ResponseBody
-    public void createNickHandler(Model model, HttpServletResponse response) throws Exception {
-        model.addAttribute("nickdata", member.getNickname());
-        System.out.println("닉네임 화면에 출력");
-        AlertUtils.alertAndBackPage(response);
+    public String createNickHandler() {
+        if (member.getNickname().equals("")) {
+            return "false";
+        } else {
+            return "true";
+        }
     }
 
     /* 회원 생성 */
-    @PostMapping("/login/check/new")
-    public void createMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        if (member.getId() != "" && member.getPassword() != "" && member.getNickname() != "") {
+    @GetMapping("/login/check/new")
+    @ResponseBody
+    public String createMember() {
+        if (member.getId().equals("") ||
+                member.getPassword().equals("") ||
+                member.getNickname().equals("")) {
             memberService.save(member);
-            member.drop();
+            return "false";
         } else {
-            AlertUtils.alertAndBackPage(response);
+            return "true";
         }
     }
 }

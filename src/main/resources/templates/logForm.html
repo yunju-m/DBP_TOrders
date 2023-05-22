@@ -20,7 +20,7 @@
           <div class="login-container">
             <div class="id-container">
               <label for="id" class="row-cols-md-3 col-form-label">ID</label>
-              <form action="/login/id/new" method="post">
+              <form id="idForm" action="/login/id/new" method="post">
                 <div class="detail-container">
                   <input type="text" id="id" name="id" title="ID" maxlength="10" required />
                   <h1 id="testid" th:text="${iddata}"></h1>
@@ -29,7 +29,7 @@
               </form>
               </div>
               <div class="pw-container">
-                <form action="/login/pw/new" method="post">
+                <form id="pwFrom" action="/login/pw/new" method="post">
                   <div class="pw1-container">
                     <label for="pswd1" class="row-cols-md-3 col-form-label">PassWord</label>
                     <div class="detail-container">
@@ -50,7 +50,7 @@
               </div>
               <div class="nick-container">
                 <label for="nickname" class="row-cols-md-3 col-form-label">NickName</label>
-                <form action="/login/nick/new" method="post" class="detail-container">
+                <form id="nickForm" action="/login/nick/new" method="post" class="detail-container">
                   <input type="text" id="nickname" name="nickname" title="NickName" maxlength="10" required />
                   <h1 th:text="${nickdata}"></h1>
                   <button type="submit" id="nickBtn" class="btn btn-outline-dark">닉네임 확인</button>

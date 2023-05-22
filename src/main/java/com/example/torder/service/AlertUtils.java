@@ -18,7 +18,7 @@ public class AlertUtils {
         out.flush();
     }
 
-    public static void alertAndMovePage(HttpServletResponse response, String nextPage)
+    public static void MovePage(HttpServletResponse response, String nextPage)
             throws IOException {
         init(response);
         PrintWriter out = response.getWriter();
@@ -26,7 +26,7 @@ public class AlertUtils {
         out.flush();
     }
 
-    public static void alertAndBackPage(HttpServletResponse response) throws IOException {
+    public static void BackPage(HttpServletResponse response) throws IOException {
         init(response);
         PrintWriter out = response.getWriter();
         // out.println("<script>alert('" + alertText + "'); history.go(-1);</script>");
