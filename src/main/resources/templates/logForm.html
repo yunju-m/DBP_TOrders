@@ -23,7 +23,7 @@
               <form action="/login/id/new" method="post">
                 <div class="detail-container">
                   <input type="text" id="id" name="id" title="ID" maxlength="10" required />
-                  <h1 th:text="${iddata}"></h1>
+                  <h1 id="testid" th:text="${iddata}"></h1>
                   <button type="submit" id="idBtn" class="btn btn-outline-dark">아이디 확인</button>
                 </div>
               </form>
@@ -52,6 +52,7 @@
                 <label for="nickname" class="row-cols-md-3 col-form-label">NickName</label>
                 <form action="/login/nick/new" method="post" class="detail-container">
                   <input type="text" id="nickname" name="nickname" title="NickName" maxlength="10" required />
+                  <h1 th:text="${nickdata}"></h1>
                   <button type="submit" id="nickBtn" class="btn btn-outline-dark">닉네임 확인</button>
                 </form>
               </div>

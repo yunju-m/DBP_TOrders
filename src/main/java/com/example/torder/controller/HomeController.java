@@ -69,24 +69,19 @@ public class HomeController {
     @ResponseBody
     public void createIDHandler(Model model, HttpServletResponse response) throws Exception {
         model.addAttribute("iddata", member.getId());
+        System.out.println(member.getId());
+        System.out.println("아이디 화면에 출력");
         AlertUtils.alertAndBackPage(response);
     }
 
     /* PW 생성 및 일치 판단여부 */
     @PostMapping("/login/pw/new")
-    public String createPW(NewLoginForm form) {
-        if (form.getPswd1() == form.getPswd2()) {
+    public void createPW(NewLoginForm form, Model model, HttpServletResponse response) throws Exception {
+        if (form.getPswd1().equals(form.getPswd2())) {
             member.setPassword(form.getPswd2());
+            System.out.println("비밀번호 저장!!");
         }
-        return "redirect:/login/pw/new";
-    }
-
-    @GetMapping("login/pw/new")
-    @ResponseBody
-    public String createPwHandler() {
-        JSONObject jo = new JSONObject();
-        jo.put("password", member.getPassword());
-        return jo.toJSONString();
+        AlertUtils.alertAndBackPage(response);
     }
 
     /* 닉네임 생성 및 중복확인 */
@@ -100,24 +95,20 @@ public class HomeController {
     /* 닉네임 생성가능여부 판단 */
     @GetMapping("login/nick/new")
     @ResponseBody
-    public String createNickHandler() {
-        JSONObject jo = new JSONObject();
-        jo.put("nickname", member.getNickname());
-        return jo.toJSONString();
+    public void createNickHandler(Model model, HttpServletResponse response) throws Exception {
+        model.addAttribute("nickdata", member.getNickname());
+        System.out.println("닉네임 화면에 출력");
+        AlertUtils.alertAndBackPage(response);
     }
 
     /* 회원 생성 */
     @PostMapping("/login/check/new")
-    public String createMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public void createMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (member.getId() != "" && member.getPassword() != "" && member.getNickname() != "") {
             memberService.save(member);
-            // AlertUtils.alertAndMovePage(response, member.getNickname() + "님 환영합니다.",
-            // "/");
             member.drop();
-            return "redirect:/";
         } else {
-            // AlertUtils.alertAndBackPage(response, "회원정보를 모두 입력해주세요.");
-            return null; // AlterUtils에서 이전 페이지로 반환하므로 null을 넣어도 상관x
+            AlertUtils.alertAndBackPage(response);
         }
     }
 }
