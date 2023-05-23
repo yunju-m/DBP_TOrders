@@ -7,7 +7,11 @@ const idBtn = document.getElementById("idBtn");
 const pwBtn = document.getElementById("pwBtn");
 const nickBtn = document.getElementById("nickBtn");
 const backBtn = document.getElementById("backBtn");
-const joinBtn = document.getElementById("joinResultBtn");
+const joinResultBtn = document.getElementById("joinResultBtn");
+
+const loginId = document.getElementById("InputId");
+const loginPw = document.getElementById("InputPassword");
+const loginBtn = document.getElementById("loginBtn");
 
 // ID POST, GET하여 ID 사용여부 결정하는 함수
 async function handleCheckId(e) {
@@ -101,8 +105,34 @@ async function handleLogin(e) {
     })
 }
 
+async function handleCheckLogin(e) {
+    e.preventDefault();  
+    let loginData = {
+        method:'POST',
+        body: JSON.stringify({"inputID": loginId.value, "inputPW": loginPw.value}),
+        headers:{
+            'Content-Type': 'application/json',
+        }
+    };
+    await fetch(`/login`, loginData)
+    .then(res => res.json())
+    .then(res => {
+        console.log(`나는 json 반환값: ${res}`);
+        if (res){
+            return location.href="/";
+        } else{
+            alert(`아이디, 비밀번호를 확인해주세요.`);
+            return location.href="/";
+        }  
+    })
+}
+
+// 회원가입 기능
 idBtn.addEventListener("click", handleCheckId);
 pwBtn.addEventListener("click", handleCheckPw);
 nickBtn.addEventListener("click", handleCheckNick);
 backBtn.addEventListener("click", handleBack);
-joinBtn.addEventListener("click", handleLogin);
+joinResultBtn.addEventListener("click", handleLogin);
+
+// 로그인 기능
+loginBtn.addEventListener("click", handleCheckLogin);

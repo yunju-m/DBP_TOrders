@@ -1,24 +1,15 @@
 package com.example.torder.controller;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.boot.json.JsonParser;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.torder.domain.Member;
-import com.example.torder.service.AlertUtils;
 import com.example.torder.service.MemberService;
-
-import ch.qos.logback.core.net.SyslogOutputStream;
 
 @Controller
 public class HomeController {
@@ -42,16 +33,20 @@ public class HomeController {
 
     /* 로그인 ID 확인 */
     @PostMapping("/login")
-    public String checkId(LoginForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.println(form.getInput_id() + " " + form.getInput_password());
-        member.setId(form.getInput_id());
-        member.setPassword(form.getInput_password());
-        boolean login_check = memberService.Login(member);
-        if (login_check) {
-            return "main";
+    public String checkLogin(@RequestBody Map<String, String> data) {
+        System.out.println(data.get("inputID") + " " + data.get("inputPW"));
+        // member.setId(data.get("inputID"));
+        // member.setPassword(data.get("inputPW"));
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    @ResponseBody
+    public String checkLoginHandler() {
+        if (memberService.Login(member)) {
+            return "true";
         } else {
-            // AlertUtils.alertAndMovePage(response, "아이디, 비밀번호가 일치하지 않습니다.", "/");
-            return "redirect:/";
+            return "false";
         }
     }
 
@@ -122,9 +117,9 @@ public class HomeController {
         if (member.getId().equals("") ||
                 member.getPassword().equals("") ||
                 member.getNickname().equals("")) {
-            memberService.save(member);
             return "false";
         } else {
+            memberService.save(member);
             return "true";
         }
     }
