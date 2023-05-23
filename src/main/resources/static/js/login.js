@@ -9,10 +9,6 @@ const nickBtn = document.getElementById("nickBtn");
 const backBtn = document.getElementById("backBtn");
 const joinResultBtn = document.getElementById("joinResultBtn");
 
-const loginId = document.getElementById("InputId");
-const loginPw = document.getElementById("InputPassword");
-const loginBtn = document.getElementById("loginBtn");
-
 // ID POST, GET하여 ID 사용여부 결정하는 함수
 async function handleCheckId(e) {
     e.preventDefault(); //기본동작 막음
@@ -26,7 +22,6 @@ async function handleCheckId(e) {
     await fetch(`/login/id/new`, idData)
     .then(res => res.json())
     .then(res => {
-        console.log(`나는 json 반환값: ${res}`);
         if (res){
             alert("사용 가능한 아이디입니다.");
         } else{
@@ -47,11 +42,9 @@ async function handleCheckPw(e){
                 'Content-Type': 'application/json',
             }
         };
-        console.log(pwData);
         await fetch(`/login/pw/new`, pwData)
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             if (res){
                 alert("비밀번호가 일치합니다.");
             } else{
@@ -75,7 +68,6 @@ async function handleCheckNick(e) {
     await fetch(`/login/nick/new`, nickData)
     .then(res => res.json())
     .then(res => {
-        console.log(`나는 json 반환값: ${res}`);
         if (res){
             alert("사용 가능한 닉네임입니다.");
         } else{
@@ -94,7 +86,6 @@ async function handleLogin(e) {
     await fetch(`/login/check/new`)
     .then(res => res.json())
     .then(res => {
-        console.log(`나는 json 반환값: ${res}`);
         if (res){
             alert(`${nickname.value}님 환영합니다!`);
             return location.href="/";
@@ -105,34 +96,9 @@ async function handleLogin(e) {
     })
 }
 
-async function handleCheckLogin(e) {
-    e.preventDefault();  
-    let loginData = {
-        method:'POST',
-        body: JSON.stringify({"inputID": loginId.value, "inputPW": loginPw.value}),
-        headers:{
-            'Content-Type': 'application/json',
-        }
-    };
-    await fetch(`/login`, loginData)
-    .then(res => res.json())
-    .then(res => {
-        console.log(`나는 json 반환값: ${res}`);
-        if (res){
-            return location.href="/";
-        } else{
-            alert(`아이디, 비밀번호를 확인해주세요.`);
-            return location.href="/";
-        }  
-    })
-}
-
 // 회원가입 기능
 idBtn.addEventListener("click", handleCheckId);
 pwBtn.addEventListener("click", handleCheckPw);
 nickBtn.addEventListener("click", handleCheckNick);
 backBtn.addEventListener("click", handleBack);
 joinResultBtn.addEventListener("click", handleLogin);
-
-// 로그인 기능
-loginBtn.addEventListener("click", handleCheckLogin);

@@ -17,25 +17,26 @@
                     <h1 class="title">혼밥은 시로시로</h1>
                     <img src="img/homePicture.jpg" id="homeimg" alt="homePicture">
                 </div>
-                    <form action="/login" class="login-container" method="post">
-                        <div class="idpw-container">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="InputId" name="InputId" placeholder="Id" required>
-                                <label for="Input_id">ID</label>   
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" class="form-control" id="InputPassword" name="InputPassword" placeholder="Password" required>
-                                <label for="floatingPassword">Password</label>
-                            </div>
+                <form action="/login" class="login-container" method="post">
+                    <div class="idpw-container">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="InputId" name="InputId" placeholder="Id" required>
+                            <label for="Input_id">ID</label>   
                         </div>
-                        <div class="btn-container">
-                            <button id="loginBtn" class="btn btn-dark" type="submit">로그인</button>
-                            <button id="joinBtn" class="btn btn-dark w-50" type="button" onclick="location.href='./login/new'">회원가입</button>
-                        </div>            
-                    </form>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="InputPassword" name="InputPassword" placeholder="Password" required>
+                            <label for="floatingPassword">Password</label>
+                        </div>
+                    </div>
+                    <div class="btn-container">
+                        <button id="loginBtn" class="btn btn-dark" type="submit">로그인</button>
+                        <button id="joinBtn" class="btn btn-dark w-50" type="button" onclick="location.href='./login/new'">회원가입</button>
+                    </div>            
+                </form>
             </div>
         </div>
     </div>
+    <script src="/js/main.js"></script>
 </body>
 <footer>
     <p class="mt-5 mb-3 text-muted">2023 우리는 아기 곰두리 다섯마리</p>

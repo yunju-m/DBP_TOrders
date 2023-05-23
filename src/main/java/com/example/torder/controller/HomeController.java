@@ -1,8 +1,6 @@
 package com.example.torder.controller;
 
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,12 +29,16 @@ public class HomeController {
         return "logForm";
     }
 
+    @GetMapping("/login/main")
+    public String mainForm() {
+        return "main";
+    }
+
     /* 로그인 ID 확인 */
     @PostMapping("/login")
     public String checkLogin(@RequestBody Map<String, String> data) {
-        System.out.println(data.get("inputID") + " " + data.get("inputPW"));
-        // member.setId(data.get("inputID"));
-        // member.setPassword(data.get("inputPW"));
+        member.setId(data.get("inputID"));
+        member.setPassword(data.get("inputPW"));
         return "redirect:/login";
     }
 
