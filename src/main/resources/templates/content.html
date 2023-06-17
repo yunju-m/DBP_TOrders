@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>board</title>
+    <style>
+    #b {
+      vertical-align: middle;
+      top: 50%;
+      left: 50% }
+
+    table { width: 100%; }
+      th, td { border: 1px solid #dadada; }
+  </style>
+</head>
+
+<body>
+<div class="container">
+    <h2><a href="/">게시글 상세 화면</a></h2>
+    <table class="board_detail">
+        <tbody>
+        <tr>
+            <th scope="row">글 번호</th>
+            <th>
+                <td th:text = "${post.id}"></td>
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">참여자 수</th>
+            <th>
+                <td th:text = "${post.number}"></td>
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">작성자</th>
+            <th>
+                <td th:text = "${post.name}"></td>
+            </th>
+        </tr>
+        <tr>
+            <th scope="row">마감시간</th>
+            <th>
+                <td th:text = "${post.date}"></td>
+            </th>
+        </tr>
+        <tr>
+
+            <th scope="row">제목</th>
+            <td colspan="3"  th:text = "${post.title}"> </td>
+        </tr>
+        <tr>
+            <th scope="row">내용</th>
+            <td colspan="3" th:text = "${post.content}"> </td>
+        </tbody>
+
+    </table>
+
+</div>
+<form action='login_page.php'>
+    <input type='button'
+           value='참여 버튼'
+           id = 'b'
+           onclick='alert("감사합니다!")'/>
+</form>
+</body>
+</html>
