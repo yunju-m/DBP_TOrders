@@ -15,7 +15,8 @@ async function handleCheckLogin(e) {
         await fetch(`/login`, loginData)
         .then(res => res.json())
         .then(res => {
-            if (res){
+            console.log(res[0]);
+            if (res[0].login){
                 return location.href="/login/main";
             } else{
                 alert(`아이디, 비밀번호를 확인해주세요.`);

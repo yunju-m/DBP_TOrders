@@ -1,6 +1,10 @@
 package com.example.torder.controller;
 
+import java.util.HashMap;
 import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,11 +49,20 @@ public class HomeController {
     @GetMapping("/login")
     @ResponseBody
     public String checkLoginHandler() {
+        JSONArray ja = new JSONArray(); // [] 대괄호 생성
+        JSONObject jo = new JSONObject(); // {} 중괄호 생성
+
+        jo.put("id", member.getId());
+        jo.put("password", member.getPassword());
+        jo.put("nickname", member.getNickname());
+
         if (memberService.Login(member)) {
-            return "true";
+            jo.put("login", "true");
         } else {
-            return "false";
+            jo.put("login", "false");
         }
+        ja.add(jo);
+        return ja.toJSONString();
     }
 
     /* ID 생성 및 중복확인 */
