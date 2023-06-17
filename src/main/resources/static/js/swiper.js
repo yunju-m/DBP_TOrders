@@ -5,7 +5,7 @@ function swiperfunc(){
     const swiper = new Swiper('#swiper', {
         direction: 'horizontal',
         effect:'fade',
-        loop: true,
+        loop: false,
     
         autoplay:{
             display:3000,
@@ -15,6 +15,5 @@ function swiperfunc(){
         pagination: {
             el: '.swiper-pagination',
         },
-
     });
 }

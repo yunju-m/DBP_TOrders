@@ -41,22 +41,21 @@ a{
     width:100%;
     height:100%;
     background-size: cover;
-    content:"";
 }
 .swiper-slide:nth-child(1){
     background-image: url('../img/chicken.jpg');
 }
 .swiper-slide:nth-child(2){
-    background-image: url('../img/pasta.jpg');
+    background-image: url('../img/sushi.jpg');
 }
 .swiper-slide:nth-child(3){
-    background-image: url('../img/porkbelly.jpg');
+    background-image: url('../img/pasta.jpg');
 }
 .swiper-slide:nth-child(4){
-    background-image: url('../img/pizza.jpg');
+    background-image: url('../img/porkbelly.jpg');
 }
 .swiper-slide:nth-child(5){
-    background-image: url('../img/sushi.jpg');
+    background-image: url('../img/pizza.jpg');
 }
 .navigator-container{
     width: 100%;
@@ -80,6 +79,7 @@ header{
 #title{
     font-weight: bold;
     font-size: 2.5em;
+    margin-top: 0.8em;
 }
 /*음식 카테고리*/
 nav{
@@ -87,7 +87,7 @@ nav{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 3em;
+    margin: 2em;
 }
 .catego_container{
     display: flex;
@@ -169,6 +169,7 @@ main{
     margin: 3em;
     padding: 0.5em;
 }
+/*게시글 글자, 버튼 속성*/
 #listTitle{
     font-size: 3em;
     font-weight: bold;
@@ -177,7 +178,7 @@ main{
     display: flex;
     justify-content: flex-end;
 }
-.main_title p{
+.main_title > p{
     margin-top: 5px;
     font-size: 14px;
 }
@@ -185,53 +186,6 @@ main{
     width: 100%;
     margin-top:1em;
 }
-.bt_wrap a:first-child{
-    margin-left: 0;
-}
-
-.main_list{
-    border-top: 2px solid #000;
-}
-.main_list > div {
-    border-bottom: 1px solid #ddd;
-}
-.main_list > div.top {
-    border-color: #999;
-}
-.main_list > div:last-child{
-    border-bottom: 1px solid#000;
-}
-
-.main_list > div > div {
-    display: inline-block;
-    padding: 15px 0;
-    font-size: 14px;
-    text-align: center;
-}
-.main_list > div.top >div {
-    font-weight: 600;
-}
-
-.main_list .num {
-    width: 6%;
-}
-.main_list .cate{
-    width: 10%;
-}
-.main_list .titl{
-    width: 60%;
-    text-align: left;
-}
-.main_list .top .titl{
-    text-align: center;
-}
-.main_list .mem{
-    width: 10%;
-}
-.main_list .date{
-    width: 10%;
-}
-
 .main_page{
     margin-top: 30px;
     text-align: center;
@@ -244,24 +198,4 @@ main{
     border: 1px solid #ddd;
     border-left: 0;
     line-height: 100%;
-}
-
-.main_page a.bt{
-    padding-top: 10px;
-    font-size: 12px;
-    letter-spacing: -1px;
-}
-.main_page a.num{
-    padding-top: 9px;
-    font-size: 14px;
-}
-
-.main_page a.num.on{
-    border-color: #000;
-    background: #000;
-    color: #ffffff;
-}
-
-.main_page a:first-child{
-    border-left: 1px solid #ddd;
 }

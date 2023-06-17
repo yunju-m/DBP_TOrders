@@ -1,23 +1,33 @@
-const inputcontent = document.getElementsByClassName("inputcontent");
-const content_id= document.querySelector(".inputcontent > li");
+// 클릭한 테이블의 목록의 카테고리 id를 반환한다.
+$("#contentTable tr").click(function(){   
+    var tr = $(this);
+    var td = tr.children();
+    categoryid = td.eq(1).text();
+    loginUserInfo(categoryid);
+})
 
 // login 사용자 정보 요청 함수
-async function loginUserInfo(){
+async function loginUserInfo(categoryid){
     console.log("로그인 사용자 정보 내놔");
     await fetch(`/login`)
     .then(res => res.json())
     .then(res => {
         console.log(res[0].id);
-        contenthandler(res[0].id);
+        console.log(categoryid);
+        var data = new Array();
+        data.userid = res[0].id;
+        data.categoryid = categoryid;
+        console.log(data);
+        contenthandler(data);
     })
 }
 
 // 반환받은 사용자 id, contentid를 이용해서 content.html에 전달
-async function contenthandler(userid){
+async function contenthandler(data){
     console.log('내용 불러온다 딱대');
     let contentData = {
         method:'POST',
-        body: JSON.stringify({"userid":userid, "contentid":content_id.innerHTML}),
+        body: JSON.stringify({"userid":data.userid, "contentid":data.categoryid}),
         headers:{
             'Content-Type': 'application/json',
         }
@@ -31,4 +41,4 @@ async function contenthandler(userid){
     return location.href="/content";
 }
 
-inputcontent[0].addEventListener("click", loginUserInfo);
+
