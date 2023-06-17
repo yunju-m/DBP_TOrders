@@ -21,17 +21,20 @@ public class HomeController {
         this.memberService = memberService;
     }
 
+    // 홈페이지 불러오는 함수
     @GetMapping("/")
     public String home() {
         return "home";
     }
 
+    // 로그인 화면 불러오는 함수
     @GetMapping("/login/new")
     public String loginForm() {
         memberService.existMembersave();
         return "logForm";
     }
 
+    // 메인 페이지 불러오는 함수
     @GetMapping("/login/main")
     public String mainForm() {
         return "main";
@@ -45,6 +48,7 @@ public class HomeController {
         return "redirect:/login";
     }
 
+    // 로그인 성공 시 login사용자 정보 전달하는 함수
     @GetMapping("/login")
     @ResponseBody
     public String checkLoginHandler() {

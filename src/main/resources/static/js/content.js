@@ -1,6 +1,7 @@
 const inputcontent = document.getElementsByClassName("inputcontent");
 const content_id= document.querySelector(".inputcontent > li");
 
+// login 사용자 정보 요청 함수
 async function loginUserInfo(){
     console.log("로그인 사용자 정보 내놔");
     await fetch(`/login`)
