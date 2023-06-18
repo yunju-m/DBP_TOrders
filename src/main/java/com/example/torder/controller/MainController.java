@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.torder.domain.Category;
 import com.example.torder.domain.Content;
 import com.example.torder.service.ContentService;
 
@@ -15,10 +16,30 @@ import com.example.torder.service.ContentService;
 public class MainController {
     MatchingForm matchingForm = new MatchingForm();
     Content content = new Content();
+    Category category = new Category();
     private final ContentService contentService;
 
     public MainController(ContentService contentService) {
         this.contentService = contentService;
+    }
+
+    // categoryData를 받아서 해당 카테고리 게시글 모두 가져오기
+    @PostMapping("/category")
+    public String searchCategory(@RequestBody Map<String, String> data) {
+        System.out.println("****카테고리 버튼 구분 시작*******");
+        category.setPK_category_id(data.get("category_id"));
+        category.setCategory_name(data.get("category_name"));
+        System.out.println(category.getCategory_name());
+        System.out.println(category.getPK_category_id());
+        return "redirect:/category/post";
+    }
+
+    // 가져온 게시글을 json형태로 반환하기
+    @GetMapping("/category/post")
+    @ResponseBody
+    public String CategoryInto() {
+        System.out.println("category정보들 반환합니당!!");
+        return contentService.getCategoryContentInfo(category);
     }
 
     // userid, contentid을 이용해서 matchingForm 정보 저장

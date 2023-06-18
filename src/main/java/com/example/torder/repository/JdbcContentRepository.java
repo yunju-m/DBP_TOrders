@@ -5,10 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import com.example.torder.controller.MatchingForm;
+import com.example.torder.domain.Category;
 import com.example.torder.domain.Content;
 
 public class JdbcContentRepository implements ContentRepository {
@@ -18,7 +22,43 @@ public class JdbcContentRepository implements ContentRepository {
         this.dataSource = dataSource;
     }
 
-    /* 받은 category_id 이용해서 게시글 정보 가져오기 */
+    /* 받은 category_id 이용해서 해당 모든 게시글 정보 가져오기 */
+    @Override
+    public String getCategoryContentInfo(Category category) {
+        String sql = "select * from contents where category_id = ?";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            System.out.println(Integer.valueOf(category.getPK_category_id()).getClass().getName());
+            pstmt.setInt(1, Integer.valueOf(category.getPK_category_id()));
+            rs = pstmt.executeQuery();
+            Content content = new Content();
+            while (rs.next()) {
+                content.setPK_content_id(rs.getInt("PK_content_id"));
+                content.setCategory_id(rs.getInt("category_id"));
+                content.setTitle(rs.getString("title"));
+                content.setBody(rs.getString("body"));
+                content.setLocation(rs.getString("location"));
+                content.setEnd_time(rs.getString("end_time"));
+                content.setContent_state(rs.getBoolean("content_state"));
+                System.out.println(rs.getInt("PK_content_id"));
+                System.out.println(rs.getString("title"));
+                System.out.println("나는 게시글 저장 jdbc이당!!!");
+            }
+            // 여기서 각 content내용들 모두 저장해서 string으로 반환!!!!(수정)
+            return content.toString();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    /* 받은 content_id 이용해서 게시글 정보 가져오기 */
+    /* category_id는 여러개가 존재할 수 있음, 내가 고른 게시글 정보만 필요 */
     @Override
     public Content getContentInfo(MatchingForm matchingForm) {
         String sql = "select * from contents where PK_content_id = ?";
