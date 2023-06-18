@@ -128,7 +128,7 @@ public class HomeController {
         }
     }
 
-    /* 회원 생성 */
+    /* 회원 생성 후 db 저장 */
     @GetMapping("/login/check/new")
     @ResponseBody
     public String createMember() {
