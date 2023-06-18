@@ -8,7 +8,7 @@ function swiperfunc(){
         loop: false,
     
         autoplay:{
-            display:3000,
+            display:2500,
             disableOnInteraction:false,
         },
 

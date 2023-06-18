@@ -89,14 +89,28 @@
                             <th scope="col">번호</th>
                             <th scope="col">카테고리</th>
                             <th scope="col">제목</th>
-                            <th scope="col">인원수/제한인원</th>
                             <th scope="col">제한시간</th>
                             <th scope="col">주소</th>
                             <th scope="col">상태</th>
                         </tr>
                     </thead>
                     <tbody class="inputcontent">
-                        <tr></tr>
+                        <tr th:each="board, loop : ${boardInfo}">
+                            <td th:text="${loop.index}+1"></td>
+                            <td th:text="${board.category_id}"></td>
+                            <td th:text="${board.title}"></td>
+                            <td th:text="${board.end_time}"></td>
+                            <td th:text="${board.location}"></td> 
+                            <td th:text="${board.content_state}"></td>
+                            <!-- <tr th:each="category, loop : ${categoryInfo}" 
+                            th:if="${category.category_id} == ${board.category_id}"
+                            th:text="${category.category_name}">
+                            </tr> -->
+                        </tr>
+                        <tr th:each="category, loop : ${categoryInfo}">
+                            <span th:if="${category.category_id == 1}"
+                            th:text="${category.category_name}"></span>    
+                        </tr>
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example">

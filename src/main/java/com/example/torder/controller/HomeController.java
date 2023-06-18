@@ -34,12 +34,6 @@ public class HomeController {
         return "logForm";
     }
 
-    // 메인 페이지 불러오는 함수
-    @GetMapping("/login/main")
-    public String mainForm() {
-        return "main";
-    }
-
     /* 로그인 ID 확인 */
     @PostMapping("/login")
     public String checkLogin(@RequestBody Map<String, String> data) {

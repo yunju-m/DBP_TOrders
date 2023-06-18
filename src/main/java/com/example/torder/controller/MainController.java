@@ -25,23 +25,31 @@ public class MainController {
         this.contentService = contentService;
     }
 
+    // 메인 페이지 처음 실행 시 초기 데이터 호출함수
+    @GetMapping("/login/main")
+    public String mainTotalInfo(Model model) {
+        model.addAttribute("boardInfo", contentService.getTotalContent());
+        model.addAttribute("categoryInfo", contentService.getTotalCategory());
+        return "main";
+    }
+
     // categoryData를 받아서 해당 카테고리 게시글 모두 가져오기
     @PostMapping("/category")
     public String searchCategory(@RequestBody Map<String, String> data) {
-        System.out.println("****카테고리 버튼 구분 시작*******");
         category.setPK_category_id(data.get("category_id"));
         category.setCategory_name(data.get("category_name"));
-        System.out.println(category.getCategory_name());
-        System.out.println(category.getPK_category_id());
         return "redirect:/category/post";
     }
 
     // 가져온 게시글을 json형태로 반환하기
     @GetMapping("/category/post")
     @ResponseBody
-    public List<Content> CategoryInto(Model model) {
-        System.out.println("category정보들 반환합니당!!");
-        model.addAttribute("categoryInfo", model);
+    public List<Content> CategoryInto() {
+        // 카테고리 id가 1이면 전체 게시글 추출
+        if (category.getPK_category_id().equals("1")) {
+            return contentService.getTotalContent();
+        }
+        // 1이 아니면 특정 게시글 추출
         return contentService.getCategoryContentInfo(category);
     }
 

@@ -14,6 +14,15 @@ public class ContentService {
         this.contentRepository = contentRepository;
     }
 
+    /* 첫 시작 게시글 전체 정보 가져오기 */
+    public List<Content> getTotalContent() {
+        return contentRepository.getTotalContent();
+    }
+
+    public List<Category> getTotalCategory() {
+        return contentRepository.getTotalCategory();
+    }
+
     /* 해당 카테고리 모든 정보 가져오기 */
     public List<Content> getCategoryContentInfo(Category category) {
         return contentRepository.getCategoryContentInfo(category);

@@ -16,6 +16,40 @@ async function handleLogout(){
     });
 }
 
+// 게시글 출력하는 공통함수
+function boardWrite(res){
+    // 기존의 tr안의 td 모두 삭제
+    const remove_tr = inputcontent[0].getElementsByTagName('tr');
+    const tr_length = remove_tr.length;
+    
+    for (var i = 0; i < tr_length; i++) {
+        remove_tr[0].remove();  // 위에부터 차례로 삭제하므로 0으로 지정
+    }
+
+    for (let i = 0; i < res.length; i++) {
+        let tr = document.createElement("tr");
+        let td = document.createElement("td");
+        td.textContent = `${i+1}`;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = `${res[i].category_id}`;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = `${res[i].title}`;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = `${res[i].end_time}`;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = `${res[i].location}`;
+        tr.appendChild(td);
+        td = document.createElement("td");
+        td.textContent = `${res[i].content_state}`;
+        tr.appendChild(td);
+        inputcontent[0].appendChild(tr);
+    };
+}
+
 // 카테고리 별 버튼 클릭하면 해당 내용만 추출
 async function handlerCategory(event){
     console.log("카테고리 버튼 클릭!!!");
@@ -30,33 +64,7 @@ async function handlerCategory(event){
     await fetch(`/category`, categoryData)
     .then(res => res.json())
     .then(res => {
-        console.log(res[0].category_id);
-        for (let i = 0; i < res.length; i++) {
-            let tr = document.createElement("tr");
-            let td = document.createElement("td");
-            td.textContent = `${i+1}`;
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.textContent = `${res[i].category_id}`;
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.textContent = `${res[i].title}`;
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.textContent = `${res[i].end_time}`;
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.textContent = `${res[i].location}`;
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.textContent = `${res[i].content_state}`;
-            tr.appendChild(td);
-            console.log(tr);
-            inputcontent[0].appendChild(tr);
-            // inputcontent.append(tr, "");
-            // let br = document.createElement("br");
-            // td.appendChild(br);
-        };
+    boardWrite(res);
     })
 }
 

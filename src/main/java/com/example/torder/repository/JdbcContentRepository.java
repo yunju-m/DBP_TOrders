@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DataSourceUtils;
@@ -18,10 +16,66 @@ import com.example.torder.domain.Content;
 
 public class JdbcContentRepository implements ContentRepository {
     private final DataSource dataSource;
-    private static Map<String, Content> category_db = new HashMap<>();
 
     public JdbcContentRepository(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+
+    /* 전체 게시글 내용 추출 */
+    @Override
+    public List<Content> getTotalContent() {
+        String sql = "select * from contents";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            rs = pstmt.executeQuery();
+            List<Content> list = new ArrayList<>();
+            while (rs.next()) {
+                Content content = new Content();
+                content.setPK_content_id(rs.getInt("PK_content_id"));
+                content.setCategory_id(rs.getInt("category_id"));
+                content.setTitle(rs.getString("title"));
+                content.setBody(rs.getString("body"));
+                content.setLocation(rs.getString("location"));
+                content.setEnd_time(rs.getString("end_time"));
+                content.setContent_state(rs.getBoolean("content_state"));
+                list.add(content);
+            }
+            return list;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
+    }
+
+    /* 카테고리 id가 동일한 카테고리 이름 추출 */
+    @Override
+    public List<Category> getTotalCategory() {
+        String sql = "select * from category ";
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            rs = pstmt.executeQuery();
+            List<Category> list = new ArrayList<>();
+            while (rs.next()) {
+                Category category = new Category();
+                category.setPK_category_id(rs.getString("PK_category_id"));
+                category.setCategory_name(rs.getString("category_name"));
+                list.add(category);
+            }
+            return list;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            close(conn, pstmt, rs);
+        }
     }
 
     /* 받은 category_id 이용해서 해당 모든 게시글 정보 가져오기 */
@@ -34,7 +88,6 @@ public class JdbcContentRepository implements ContentRepository {
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            System.out.println(Integer.valueOf(category.getPK_category_id()).getClass().getName());
             pstmt.setInt(1, Integer.valueOf(category.getPK_category_id()));
             rs = pstmt.executeQuery();
             List<Content> list = new ArrayList<>();
@@ -48,12 +101,7 @@ public class JdbcContentRepository implements ContentRepository {
                 content.setEnd_time(rs.getString("end_time"));
                 content.setContent_state(rs.getBoolean("content_state"));
                 list.add(content);
-                System.out.println(rs.getInt("PK_content_id"));
-                System.out.println(rs.getString("title"));
-                System.out.println("나는 게시글 저장 jdbc이당!!!");
-                // category_db.put(content.toString(), content);
             }
-            // 여기서 각 content내용들 모두 저장해서 string으로 반환!!!!(수정)
             return list;
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -73,7 +121,6 @@ public class JdbcContentRepository implements ContentRepository {
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            System.out.println(Integer.valueOf(matchingForm.getContentid()).getClass().getName());
             pstmt.setInt(1, Integer.valueOf(matchingForm.getContentid()));
             rs = pstmt.executeQuery();
             Content content = new Content();
@@ -85,9 +132,6 @@ public class JdbcContentRepository implements ContentRepository {
                 content.setLocation(rs.getString("location"));
                 content.setEnd_time(rs.getString("end_time"));
                 content.setContent_state(rs.getBoolean("content_state"));
-                System.out.println(rs.getInt("PK_content_id"));
-                System.out.println(rs.getString("title"));
-                System.out.println("나는 게시글 저장 jdbc이당!!!");
             }
             return content;
         } catch (Exception e) {
