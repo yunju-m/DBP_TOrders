@@ -1,8 +1,10 @@
 package com.example.torder.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,8 +39,9 @@ public class MainController {
     // 가져온 게시글을 json형태로 반환하기
     @GetMapping("/category/post")
     @ResponseBody
-    public String CategoryInto() {
+    public List<Content> CategoryInto(Model model) {
         System.out.println("category정보들 반환합니당!!");
+        model.addAttribute("categoryInfo", model);
         return contentService.getCategoryContentInfo(category);
     }
 

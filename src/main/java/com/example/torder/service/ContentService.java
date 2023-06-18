@@ -1,5 +1,7 @@
 package com.example.torder.service;
 
+import java.util.List;
+
 import com.example.torder.controller.MatchingForm;
 import com.example.torder.domain.Category;
 import com.example.torder.domain.Content;
@@ -13,7 +15,7 @@ public class ContentService {
     }
 
     /* 해당 카테고리 모든 정보 가져오기 */
-    public String getCategoryContentInfo(Category category) {
+    public List<Content> getCategoryContentInfo(Category category) {
         return contentRepository.getCategoryContentInfo(category);
     }
 

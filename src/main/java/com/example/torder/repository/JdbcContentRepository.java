@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -24,7 +26,7 @@ public class JdbcContentRepository implements ContentRepository {
 
     /* 받은 category_id 이용해서 해당 모든 게시글 정보 가져오기 */
     @Override
-    public String getCategoryContentInfo(Category category) {
+    public List<Content> getCategoryContentInfo(Category category) {
         String sql = "select * from contents where category_id = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -35,8 +37,9 @@ public class JdbcContentRepository implements ContentRepository {
             System.out.println(Integer.valueOf(category.getPK_category_id()).getClass().getName());
             pstmt.setInt(1, Integer.valueOf(category.getPK_category_id()));
             rs = pstmt.executeQuery();
-            Content content = new Content();
+            List<Content> list = new ArrayList<>();
             while (rs.next()) {
+                Content content = new Content();
                 content.setPK_content_id(rs.getInt("PK_content_id"));
                 content.setCategory_id(rs.getInt("category_id"));
                 content.setTitle(rs.getString("title"));
@@ -44,13 +47,14 @@ public class JdbcContentRepository implements ContentRepository {
                 content.setLocation(rs.getString("location"));
                 content.setEnd_time(rs.getString("end_time"));
                 content.setContent_state(rs.getBoolean("content_state"));
+                list.add(content);
                 System.out.println(rs.getInt("PK_content_id"));
                 System.out.println(rs.getString("title"));
                 System.out.println("나는 게시글 저장 jdbc이당!!!");
                 // category_db.put(content.toString(), content);
             }
             // 여기서 각 content내용들 모두 저장해서 string으로 반환!!!!(수정)
-            return content.toString();
+            return list;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {

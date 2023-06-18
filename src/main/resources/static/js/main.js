@@ -2,6 +2,8 @@ const logoutBtn = document.getElementById("logoutBtn");
 const searchContent = document.getElementById("searchContent");
 const searchBtn = document.getElementById("searchBtn");
 const categoryBtns = document.getElementsByClassName("category-item");
+const inputcontent = document.getElementsByClassName("inputcontent");
+const tr = document.querySelector(".inputcontent > tr");
 
 // 로그아웃 버튼 클릭하면 첫 화면으로 이동
 async function handleLogout(){
@@ -28,7 +30,33 @@ async function handlerCategory(event){
     await fetch(`/category`, categoryData)
     .then(res => res.json())
     .then(res => {
-        console.log(res);
+        console.log(res[0].category_id);
+        for (let i = 0; i < res.length; i++) {
+            let tr = document.createElement("tr");
+            let td = document.createElement("td");
+            td.textContent = `${i+1}`;
+            tr.appendChild(td);
+            td = document.createElement("td");
+            td.textContent = `${res[i].category_id}`;
+            tr.appendChild(td);
+            td = document.createElement("td");
+            td.textContent = `${res[i].title}`;
+            tr.appendChild(td);
+            td = document.createElement("td");
+            td.textContent = `${res[i].end_time}`;
+            tr.appendChild(td);
+            td = document.createElement("td");
+            td.textContent = `${res[i].location}`;
+            tr.appendChild(td);
+            td = document.createElement("td");
+            td.textContent = `${res[i].content_state}`;
+            tr.appendChild(td);
+            console.log(tr);
+            inputcontent[0].appendChild(tr);
+            // inputcontent.append(tr, "");
+            // let br = document.createElement("br");
+            // td.appendChild(br);
+        };
     })
 }
 
@@ -53,6 +81,6 @@ async function handleSearch(){
 logoutBtn.addEventListener("click", handleLogout);
 searchBtn.addEventListener("click", handleSearch);
 
-for (var i=0; i < categoryBtns.length; i++){
+for (let i=0; i < categoryBtns.length; i++){
     categoryBtns[i].addEventListener("click", handlerCategory);
 }
