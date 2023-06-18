@@ -5,11 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.sql.DataSource;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import com.example.torder.controller.MatchingForm;
 import com.example.torder.domain.Category;
@@ -17,6 +16,7 @@ import com.example.torder.domain.Content;
 
 public class JdbcContentRepository implements ContentRepository {
     private final DataSource dataSource;
+    private static Map<String, Content> category_db = new HashMap<>();
 
     public JdbcContentRepository(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -47,6 +47,7 @@ public class JdbcContentRepository implements ContentRepository {
                 System.out.println(rs.getInt("PK_content_id"));
                 System.out.println(rs.getString("title"));
                 System.out.println("나는 게시글 저장 jdbc이당!!!");
+                // category_db.put(content.toString(), content);
             }
             // 여기서 각 content내용들 모두 저장해서 string으로 반환!!!!(수정)
             return content.toString();
