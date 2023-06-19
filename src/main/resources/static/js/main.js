@@ -5,6 +5,7 @@ const categoryBtns = document.getElementsByClassName("category-item");
 const inputcontent = document.getElementsByClassName("inputcontent");
 const tr = document.querySelector(".inputcontent > tr");
 const writeBtn = document.getElementById("writepageBtn");
+const mypageBtn = document.getElementById("mypageBtn");
 
 // 로그아웃 버튼 클릭하면 첫 화면으로 이동
 async function handleLogout(){
@@ -98,9 +99,18 @@ function handleWrite(){
     return location.href = "/post/createform";
 }
 
+async function handleMypage(){
+    await fetch(`/login`)
+    .then(res => res.json())
+    .then(res => {
+        return location.href=`/mypage/${res[0].id}`;
+    });
+}
+
 logoutBtn.addEventListener("click", handleLogout);
 searchBtn.addEventListener("click", handleSearch);
 writeBtn.addEventListener("click", handleWrite);
+mypageBtn.addEventListener("click", handleMypage);
 
 for (let i=0; i < categoryBtns.length; i++){
     categoryBtns[i].addEventListener("click", handlerCategory);

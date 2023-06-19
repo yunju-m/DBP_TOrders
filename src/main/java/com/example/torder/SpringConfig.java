@@ -11,9 +11,11 @@ import com.example.torder.repository.ContentRepository;
 import com.example.torder.repository.JdbcContentRepository;
 import com.example.torder.repository.JdbcMemberRepository;
 import com.example.torder.repository.MemberRepository;
+import com.example.torder.repository.MyPageUserRepository;
 import com.example.torder.repository.NowContentRepository;
 import com.example.torder.service.ContentService;
 import com.example.torder.service.MemberService;
+import com.example.torder.service.MyPageUserService;
 import com.example.torder.service.NowContentService;
 
 @Configuration
@@ -22,10 +24,13 @@ import com.example.torder.service.NowContentService;
 public class SpringConfig {
     private final DataSource dataSource;
     private final NowContentRepository nowcontentRepository;
+    private final MyPageUserRepository myuserRepository;
 
-    public SpringConfig(DataSource dataSource, NowContentRepository nowcontentRepository) {
+    public SpringConfig(DataSource dataSource, NowContentRepository nowcontentRepository,
+            MyPageUserRepository myPageUserRepository) {
         this.dataSource = dataSource;
         this.nowcontentRepository = nowcontentRepository;
+        this.myuserRepository = myPageUserRepository;
     }
 
     @Bean
@@ -51,5 +56,10 @@ public class SpringConfig {
     @Bean
     public NowContentService NowcontentService() {
         return new NowContentService(nowcontentRepository);
+    }
+
+    @Bean
+    public MyPageUserService userService() {
+        return new MyPageUserService(myuserRepository);
     }
 }

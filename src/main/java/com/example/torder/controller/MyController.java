@@ -3,8 +3,6 @@ package com.example.torder.controller;
 import com.example.torder.domain.NowContent;
 import com.example.torder.service.NowContentService;
 
-import lombok.experimental.PackagePrivate;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

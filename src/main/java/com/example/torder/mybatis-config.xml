@@ -5,5 +5,7 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="ContentEntity" type="com.example.torder.entity.ContentEntity"/>
+        <typeAlias alias="MyPageUserEntity" type="com.example.torder.entity.MyPageUserEntity"/>
+        <typeAlias alias="MyPageMatchingEntity" type="com.example.torder.entity.MyPageMatchingEntity"/>
     </typeAliases>
 </configuration>
