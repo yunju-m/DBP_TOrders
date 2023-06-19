@@ -1,11 +1,11 @@
 // 클릭한 테이블의 목록의 카테고리 id를 반환한다.
-$("#inputcontent").click(function(){   
-    var tr = $(this);
-    var td = tr.children();
-    categoryid = td.eq(1).text();
-    console.log(categoryid);
-    loginUserInfo(categoryid);
-})
+// $("#inputcontent").click(function(){   
+//     var tr = $(this);
+//     var td = tr.children();
+//     categoryid = td.eq(1).text();
+//     console.log(categoryid);
+//     loginUserInfo(categoryid);
+// })
 
 // login 사용자 정보 요청 함수
 async function loginUserInfo(categoryid){

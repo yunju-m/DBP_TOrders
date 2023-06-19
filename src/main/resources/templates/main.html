@@ -92,11 +92,11 @@
                             <th scope="col">제한시간</th>
                             <th scope="col">주소</th>
                             <th scope="col">상태</th>
+                            <th scope="col">글보기</th>
                         </tr>
                     </thead>
                     <tbody id="inputcontent" class="inputcontent">
-                        <tr th:each="board, loop : ${boardInfo}" 
-                        th:href="@{/main/{contentId}/page(contentId = ${board.PK_content_id})}">
+                        <tr th:each="board, loop : ${boardInfo}"> 
                             <td th:text="${loop.index}+1"></td>
                             <td th:text="${board.category_id == 2 ? '한식' : 
                             board.category_id == 3 ? '일식' : 
@@ -109,6 +109,7 @@
                             <td th:text="${board.end_time}"></td>
                             <td th:text="${board.location}"></td> 
                             <td th:text="${board.content_state}"></td>
+                            <td><a th:href="@{/main/{contentId}/page(contentId = ${board.PK_content_id})}">글보기</a></td>
                         </tr>
                     </tbody>
                 </table>
