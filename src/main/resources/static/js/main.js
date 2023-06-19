@@ -4,6 +4,7 @@ const searchBtn = document.getElementById("searchBtn");
 const categoryBtns = document.getElementsByClassName("category-item");
 const inputcontent = document.getElementsByClassName("inputcontent");
 const tr = document.querySelector(".inputcontent > tr");
+const writeBtn = document.getElementById("writepageBtn");
 
 // 로그아웃 버튼 클릭하면 첫 화면으로 이동
 async function handleLogout(){
@@ -92,8 +93,14 @@ async function handleSearch(){
     })
 }
 
+// 게시글 버튼 클릭하면 게시글 작성 페이지로 이동
+function handleWrite(){
+    return location.href = "/post/createform";
+}
+
 logoutBtn.addEventListener("click", handleLogout);
 searchBtn.addEventListener("click", handleSearch);
+writeBtn.addEventListener("click", handleWrite);
 
 for (let i=0; i < categoryBtns.length; i++){
     categoryBtns[i].addEventListener("click", handlerCategory);

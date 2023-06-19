@@ -25,7 +25,7 @@ public class MyController {
     @GetMapping("/main/{contentId}/page")
     public String mypage(@PathVariable int contentId, Model model) {
         System.out.println("start---------------------");
-        NowContent content = nowcontentService.findContent(1);
+        NowContent content = nowcontentService.findContent(contentId);
         model.addAttribute("content", content);
 
         return "page";
