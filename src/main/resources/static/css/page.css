@@ -1,0 +1,68 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+* {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-display: swap;
+}
+ul, li {
+    list-style: none;
+}
+a{
+    text-decoration: none !important;
+}
+#backarrow{
+    width: 50px;
+    height: 50px;
+    margin-right: 1em;
+}
+/*배경 이미지 및 div*/
+.background-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+/*게시글 컨테이너*/
+.content-container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+/*게시글 이미지*/
+#pageImg{
+    display: flex;
+    width:300px;
+    height: 200px;
+    background-image: url('../img/koreanFood.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.page-container{
+    display: flex;
+    width: 100%;
+    margin: 4em;
+    margin-bottom: 0;
+    position: relative;
+}
+.page-content-container{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    /* border: 3px solid black;
+    border-radius: 2em; */
+}
+#title{
+    font-weight: bold;
+    padding-bottom: 0.4em;
+}
+.list-title{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+p {
+    font-size: large;
+}
+#doBtn{
+    width: 60px;
+}

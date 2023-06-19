@@ -109,7 +109,7 @@
                             <td th:text="${board.end_time}"></td>
                             <td th:text="${board.location}"></td> 
                             <td th:text="${board.content_state}"></td>
-                            <td id="watchBtn"><a th:href="@{/main/{contentId}/page(contentId = ${board.PK_content_id})}">글보기</a></td>
+                            <td id="watchBtn"><a th:href="@{/main/{contentId}/page(contentId = ${board.PK_content_id})}" >글보기</a></td>
                         </tr>
                     </tbody>
                 </table>
