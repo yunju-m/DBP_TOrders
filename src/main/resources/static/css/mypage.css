@@ -1,0 +1,136 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+* {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    font-display: swap;
+}
+ul, li {
+    list-style: none;
+}
+a{
+    text-decoration: none !important;
+}
+/*배경 이미지 및 div*/
+.background-container{
+    width: 100%;
+    height: 100%;
+    position:relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.background-container::after{
+    width:100vw;
+    height:100vh;
+    content:"";
+    background-image: url('../img/backgroundImg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    position:absolute;
+    top:0;
+    left: 0;
+    z-index:-1;
+    opacity: 0.4;
+}
+.container-xl{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+    height:100vh;
+    justify-content: center;
+    align-items: center;
+}
+/* 전체 마이페이지 테두리에 대한 컨테이너 */
+.mypage-container{
+    display: flex;
+    width:450px;
+    height:100%;
+    flex-direction: column;
+    background-color: white;
+    padding:1em;
+    padding-top:1em;
+    margin:3em;
+    border:solid;
+    border-color: black;
+    border-radius: 3em;
+}
+/*전체 마이페이지 내용에 대한 컨테이너*/
+.mypage-content-container{
+    display: flex;
+    width:100%;
+    height:100%;
+    flex-direction: column;
+    align-items: center;
+}
+/*마이페이지 상세정보(프로필사진, 닉네임)*/
+#backarrow{
+    width:50px;
+    height:50px;
+}
+.title > h1{
+    width:100%;
+    font-weight: bolder;
+    font-size: 3em;
+    color:black;
+}
+.user-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top:1em;
+}
+.profileImg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100px;
+    height:100px;
+    background-image: url("../img/profile.png");
+    border: 2px solid black;
+    background-size: cover;
+    margin-bottom: 1em;
+}
+/*참여글, 내정보, 소개 컨테이너*/
+.content-container{
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    width:100%;
+    height:100%;
+    padding-top:1em;
+}
+/*참여글 제목 css*/
+#nav-tab{
+    font-weight: bold;
+}
+/*참여글 매칭 테이블 css*/
+.tab-content{
+    height: 100%;
+    padding:2em;
+    font-size: large;
+}
+#matching-tbody{
+    display: flex;
+    justify-content: center;
+
+}
+td{
+    padding-right: 3em;
+}
+#cancelBtn > a {
+    color: white;
+}
+
+/*내정보 컨테이너*/
+.profile-content{
+    display: flex;
+    flex-direction: column;
+}
+.user-content{
+    display: flex;
+}
+.user-content > p{
+    font-size: large;
+    font-weight: bold;
+    padding-right: 1em;
+}

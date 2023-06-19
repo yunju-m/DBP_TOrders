@@ -1,12 +1,16 @@
 package com.example.torder.controller;
 
 import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.torder.domain.Member;
+import com.example.torder.service.ContentService;
 import com.example.torder.service.MemberService;
 
 @Controller
@@ -18,20 +22,17 @@ public class HomeController {
         this.memberService = memberService;
     }
 
+    // 홈페이지 불러오는 함수
     @GetMapping("/")
     public String home() {
         return "home";
     }
 
+    // 로그인 화면 불러오는 함수
     @GetMapping("/login/new")
     public String loginForm() {
         memberService.existMembersave();
         return "logForm";
-    }
-
-    @GetMapping("/login/main")
-    public String mainForm() {
-        return "main";
     }
 
     /* 로그인 ID 확인 */
@@ -42,14 +43,24 @@ public class HomeController {
         return "redirect:/login";
     }
 
+    // 로그인 성공 시 login사용자 정보 전달하는 함수
     @GetMapping("/login")
     @ResponseBody
     public String checkLoginHandler() {
+        JSONArray ja = new JSONArray(); // [] 대괄호 생성
+        JSONObject jo = new JSONObject(); // {} 중괄호 생성
+
+        jo.put("id", member.getId());
+        jo.put("password", member.getPassword());
+        jo.put("nickname", member.getNickname());
+
         if (memberService.Login(member)) {
-            return "true";
+            jo.put("login", "true");
         } else {
-            return "false";
+            jo.put("login", "false");
         }
+        ja.add(jo);
+        return ja.toJSONString();
     }
 
     /* ID 생성 및 중복확인 */
@@ -112,7 +123,7 @@ public class HomeController {
         }
     }
 
-    /* 회원 생성 */
+    /* 회원 생성 후 db 저장 */
     @GetMapping("/login/check/new")
     @ResponseBody
     public String createMember() {

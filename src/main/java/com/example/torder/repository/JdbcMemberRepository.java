@@ -20,12 +20,13 @@ public class JdbcMemberRepository implements MemberRepository {
         this.dataSource = dataSource;
     }
 
-    /* 중복 id, nickname 판단 */
+    /* 중복 id 판단 */
     @Override
     public boolean findById(String id) {
         return Id_db.containsKey(id);
     }
 
+    /* 중복 nickname 판단 */
     @Override
     public boolean findByNickname(String nickname) {
         return Nick_db.containsKey(nickname);
