@@ -6,6 +6,7 @@ const inputcontent = document.getElementsByClassName("inputcontent");
 const tr = document.querySelector(".inputcontent > tr");
 const writeBtn = document.getElementById("writepageBtn");
 const mypageBtn = document.getElementById("mypageBtn");
+const watchBtn = document.querySelectorAll(".inputcontent > tr > td#watchBtn");
 
 // 로그아웃 버튼 클릭하면 첫 화면으로 이동
 async function handleLogout(){
@@ -99,11 +100,23 @@ function handleWrite(){
     return location.href = "/post/createform";
 }
 
+// 마이페이지 버튼 클릭 시 마이페이지 이동
 async function handleMypage(){
     await fetch(`/login`)
     .then(res => res.json())
     .then(res => {
         return location.href=`/mypage/${res[0].id}`;
+    });
+}
+
+async function handleWatch(){
+    await fetch(`/login`)
+    .then(res => res.json())
+    .then(res => {
+        console.log(res[0])
+        if (res[0].content_state == 'false'){
+            alert("이미 만료된 게시글입니다.");
+        }
     });
 }
 
@@ -114,4 +127,8 @@ mypageBtn.addEventListener("click", handleMypage);
 
 for (let i=0; i < categoryBtns.length; i++){
     categoryBtns[i].addEventListener("click", handlerCategory);
+}
+
+for (let i=0; i < watchBtn.length; i++){
+    watchBtn[i].addEventListener("click", handleWatch);
 }

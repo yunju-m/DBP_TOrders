@@ -17,7 +17,7 @@ async function handleCheckLogin(e) {
         .then(res => {
             console.log(res[0].login == 'false');
             if (res[0].login=='true'){
-                return location.href="/login/main";
+                return location.href=`/login/main`;
             } else{
                 alert(`아이디, 비밀번호를 확인해주세요.`);
             }  

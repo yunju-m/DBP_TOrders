@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.torder.domain.Member;
+import com.example.torder.service.ContentService;
 import com.example.torder.service.MemberService;
 
 @Controller
