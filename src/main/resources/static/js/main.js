@@ -32,7 +32,13 @@ function boardWrite(res){
         td.textContent = `${i+1}`;
         tr.appendChild(td);
         td = document.createElement("td");
-        td.textContent = `${res[i].category_id}`;
+        td.textContent = `${res[i].category_id == '2' ? '한식' : 
+        res[i].category_id == '3' ? '일식' : 
+        res[i].category_id == '4' ? '양식' : 
+        res[i].category_id == '5' ? '중식' :
+        res[i].category_id == '6' ? '카페' : 
+        res[i].category_id == '7' ? '패스트푸드' :
+        res[i].category_id}`;
         tr.appendChild(td);
         td = document.createElement("td");
         td.textContent = `${res[i].title}`;

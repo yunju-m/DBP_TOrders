@@ -94,22 +94,21 @@
                             <th scope="col">상태</th>
                         </tr>
                     </thead>
-                    <tbody class="inputcontent">
-                        <tr th:each="board, loop : ${boardInfo}">
+                    <tbody id="inputcontent" class="inputcontent">
+                        <tr th:each="board, loop : ${boardInfo}" 
+                        th:href="@{/main/{contentId}/page(contentId = ${board.PK_content_id})}">
                             <td th:text="${loop.index}+1"></td>
-                            <td th:text="${board.category_id}"></td>
+                            <td th:text="${board.category_id == 2 ? '한식' : 
+                            board.category_id == 3 ? '일식' : 
+                            board.category_id == 4 ? '양식' : 
+                            board.category_id == 5 ? '중식' :
+                            board.category_id == 6 ? '카페' : 
+                            board.category_id == 7 ? '패스트푸드' :
+                            board.category_id}"></td>
                             <td th:text="${board.title}"></td>
                             <td th:text="${board.end_time}"></td>
                             <td th:text="${board.location}"></td> 
                             <td th:text="${board.content_state}"></td>
-                            <!-- <tr th:each="category, loop : ${categoryInfo}" 
-                            th:if="${category.category_id} == ${board.category_id}"
-                            th:text="${category.category_name}">
-                            </tr> -->
-                        </tr>
-                        <tr th:each="category, loop : ${categoryInfo}">
-                            <span th:if="${category.category_id == 1}"
-                            th:text="${category.category_name}"></span>    
                         </tr>
                     </tbody>
                 </table>

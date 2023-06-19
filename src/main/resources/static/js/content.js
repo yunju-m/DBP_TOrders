@@ -1,8 +1,9 @@
 // 클릭한 테이블의 목록의 카테고리 id를 반환한다.
-$("#contentTable tr").click(function(){   
+$("#inputcontent").click(function(){   
     var tr = $(this);
     var td = tr.children();
     categoryid = td.eq(1).text();
+    console.log(categoryid);
     loginUserInfo(categoryid);
 })
 
